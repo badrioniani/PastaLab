@@ -434,7 +434,11 @@ class ChooseOrderFragment : Fragment() {
 
                 },
                 onItemCountChange = {item, isAdded ->
-
+                    if (isAdded) {
+                        selectedDishes.add(item)
+                    } else {
+                        selectedDishes.remove(item)
+                    }
                 })
 
         binding.ordersList.layoutManager = GridLayoutManager(requireContext(), 5)
@@ -475,9 +479,9 @@ class ChooseOrderFragment : Fragment() {
 
         pastaAdapter = PastaAdapter(
             listOf(
-                PastaType("რიგატონი", R.drawable.rigato,orderId="17e7fa3a-92d8-4b9a-827c-6d4dd968760d",price = 5.000000000),
-                PastaType("პენე", R.drawable.pene,orderId="17e7fa3a-92d8-4b9a-827c-6d4dd968760d",price = 5.000000000),
-                PastaType("ტალიატელე", R.drawable.taliatele,orderId="17e7fa3a-92d8-4b9a-827c-6d4dd968760d",price = 5.000000000),
+                PastaType("რიგატონი", R.drawable.rigato,orderId="17e7fa3a-92d8-4b9a-827c-6d4dd968760d",price = 4.000000000),
+                PastaType("პენე", R.drawable.pene,orderId="18df33ac-b1f3-4753-b1ca-ca04581870f9",price = 4.000000000),
+                PastaType("ტალიატელე", R.drawable.taliatele,orderId="1bd8d931-3117-4203-824a-af6d6c1d079f",price = 4.000000000),
                 PastaType("სპაგეტი", R.drawable.spageti,orderId="35937320-b513-44be-9d0f-f1b881de63b6",price = 4.000000000),
             ),
             singleSelect = true,
