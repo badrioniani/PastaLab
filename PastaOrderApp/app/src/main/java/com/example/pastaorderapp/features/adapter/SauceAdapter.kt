@@ -1,5 +1,6 @@
 package com.example.pastaorderapp.features.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -33,11 +34,14 @@ class SauceAdapter(
     }
 
     inner class SauceViewHolder(val view: OrderItemBinding) : RecyclerView.ViewHolder(view.root) {
+        @SuppressLint("DefaultLocale", "SetTextI18n")
         fun bind(item: Sauce) {
             view.apply {
                 title.text = item.name
                 itemImg.setImageResource(item.img)
                 isTrend.isVisible = false
+                val formatted = String.format("%.2f", item.price)
+                price.text = "$formatted ₾"
                 fire.isVisible = false
                 plus.isVisible = false
                 count.isVisible = false

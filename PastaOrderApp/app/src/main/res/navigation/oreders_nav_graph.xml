@@ -27,5 +27,9 @@
         android:id="@+id/chooseOrderFragment"
         android:name="com.example.pastaorderapp.features.chooseOrder.ChooseOrderFragment"
         android:label="fragment_choose_order"
-        tools:layout="@layout/fragment_choose_order" />
+        tools:layout="@layout/fragment_choose_order" >
+        <action
+            android:id="@+id/action_chooseOrderFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

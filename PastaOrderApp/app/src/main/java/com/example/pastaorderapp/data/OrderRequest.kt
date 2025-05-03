@@ -37,12 +37,12 @@ data class Guests(
 
 data class Item(
     @SerializedName("productId")val productId: String,
-    @SerializedName("modifiers")val modifiers: List<Modifier>,
-    @SerializedName("type")val type: String,
-    @SerializedName("amount")val amount: Int,
+    @SerializedName("modifiers")val modifiers: List<Modifier>? = null,
+    @SerializedName("type")val type: String = "Product",
+    @SerializedName("amount")val amount: Int = 1,
     @SerializedName("price")val price: Double,
-    @SerializedName("productSizeId")val productSizeId: String?,
-    @SerializedName("comboInformation")val comboInformation: String?,
+    @SerializedName("productSizeId")val productSizeId: String? = null,
+    @SerializedName("comboInformation")val comboInformation: String? = null,
     @SerializedName("comment")val comment: String
 )
 

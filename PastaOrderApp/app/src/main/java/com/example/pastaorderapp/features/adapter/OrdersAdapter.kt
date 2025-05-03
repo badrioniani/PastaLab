@@ -1,5 +1,6 @@
 package com.example.pastaorderapp.features.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,16 @@ class OrdersAdapter(
     inner class GridViewHolder(val binding: OrderItemBinding) : RecyclerView.ViewHolder(binding.root) {
         private var count = 0
 
+        @SuppressLint("DefaultLocale", "SetTextI18n")
         fun bind(item: OrderModel) {
+            if (item.id == 100){
+                binding.apply {
+                    plus.isVisible = false
+                    minus.isVisible = false
+                    price.isVisible = false
+                    count.isVisible = false
+                }
+            }
             binding.isTrend.isVisible = item.isTrend
             binding.fire.isVisible = item.isFire
             binding.fire.visibility = if (item.isFire) {
@@ -38,7 +48,8 @@ class OrdersAdapter(
             }
             binding.itemImg.setImageResource(item.img)
             binding.title.text = item.name
-            binding.price.text = item.price
+            val formatted = String.format("%.2f", item.price)
+            binding.price.text = "$formatted ₾"
             binding.count.text = count.toString()
             binding.plus.setOnClickListener {
                 count += 1

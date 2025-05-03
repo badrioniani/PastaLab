@@ -6,6 +6,6 @@ data class OrderModel(
     val isTrend:Boolean,
     val name:String,
     val img:Int,
-    val price:String,
+    val price: Double,
     val isFire:Boolean,
 )
