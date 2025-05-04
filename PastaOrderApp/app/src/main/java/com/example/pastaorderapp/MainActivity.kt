@@ -1,5 +1,9 @@
 package com.example.pastaorderapp
 
+import android.app.ActivityManager
+import android.content.ComponentName
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -23,7 +27,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val componentName = ComponentName(this, MainActivity::class.java)
 
+            if (activityManager.lockTaskModeState == ActivityManager.LOCK_TASK_MODE_NONE) {
+                startLockTask()
+            }
+        }
 
         setupNavigation()
     }

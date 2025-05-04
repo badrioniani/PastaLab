@@ -2,11 +2,13 @@ package com.example.pastaorderapp.features.chooseOrder
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.service.autofill.Validators.or
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -35,6 +37,7 @@ import com.example.pastaorderapp.features.model.Sauce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+class ChooseOrderFragment : Fragment() {
 class ChooseOrderFragment : Fragment() {
     private lateinit var rvPasta: RecyclerView
     private lateinit var rvSauces: RecyclerView
@@ -101,7 +104,7 @@ class ChooseOrderFragment : Fragment() {
         Ingredient("კაპერსი", img = R.drawable.kapersi, "რიგატონი", "ალ პომიდორი",orderId = "d27a2064-ab60-4536-a23a-c010200dcb54",price = 1.500000000),
         Ingredient("სტრაჩატელა", img = R.drawable.strachatela, "რიგატონი", "ალ პომიდორი",orderId = "a6e571e1-debb-43a2-8118-d016a3bd229d",price = 4.500000000),
         Ingredient("პარმეზანი", img = R.drawable.parmezani, "რიგატონი", "ალ პომიდორი", orderId = "56fd67e3-522c-4fde-a210-43226454c0f1", price = 3.000000000),
-        Ingredient("ბლუ ჩიზი", img = R.drawable.bekon, "რიგატონი", "ალ პომიდორი",orderId = "ec63ff7c-9059-4faf-94a5-14d750193447",price = 12.000000000),
+        Ingredient("ბლუ ჩიზი", img = R.drawable.bekon, "რიგატონი", "ალ პომიდორი",orderId = "ac1ed2f9-a7b0-4a86-98ff-40ee0e2dc0cb",price = 3.500000000),
 
         Ingredient("კიმჩის სოუსი", img = R.drawable.kimchis_sousi, "რიგატონი", "კარბონარა", orderId = "e0318de0-d2ca-4adb-b800-f3efe3b4b91b", price = 12.000000000),
         Ingredient("ბეკონი", img = R.drawable.bekon, "რიგატონი", "კარბონარა", orderId = "81042a6d-e619-41d0-a7ad-2ee8c9ccb80b", price = 6.000000000),
@@ -133,7 +136,7 @@ class ChooseOrderFragment : Fragment() {
         Ingredient("კაპერსი", img = R.drawable.kapersi, "პენე", "ალ პომიდორი",orderId = "d27a2064-ab60-4536-a23a-c010200dcb54",price = 1.500000000),
         Ingredient("სტრაჩატელა", img = R.drawable.strachatela, "პენე", "ალ პომიდორი",orderId = "a6e571e1-debb-43a2-8118-d016a3bd229d",price = 4.500000000),
         Ingredient("პარმეზანი", img = R.drawable.parmezani, "პენე", "ალ პომიდორი", orderId = "56fd67e3-522c-4fde-a210-43226454c0f1", price = 3.000000000),
-        Ingredient("ბლუ ჩიზი", img = R.drawable.parmezani, "პენე", "ალ პომიდორი",orderId = "ec63ff7c-9059-4faf-94a5-14d750193447",price = 12.000000000),
+        Ingredient("ბლუ ჩიზი", img = R.drawable.parmezani, "პენე", "ალ პომიდორი",orderId = "ac1ed2f9-a7b0-4a86-98ff-40ee0e2dc0cb",price = 3.500000000),
 
         Ingredient("2X სოკო", img = R.drawable.soko, "პენე", "სოკოს პასტა\nტრიუფელით", orderId = "2765ecea-873b-4381-a84a-43d5b251f56f", price = 3.000000000),
         Ingredient("ბეკონი", img = R.drawable.bekon, "პენე", "სოკოს პასტა\nტრიუფელით", orderId = "81042a6d-e619-41d0-a7ad-2ee8c9ccb80b", price = 6.000000000),
@@ -159,7 +162,7 @@ class ChooseOrderFragment : Fragment() {
         Ingredient("კაპერსი", img = R.drawable.kapersi, "ტალიატელე", "ალ პომიდორი",orderId = "d27a2064-ab60-4536-a23a-c010200dcb54",price = 1.500000000),
         Ingredient("სტრაჩატელა", img = R.drawable.strachatela, "ტალიატელე", "ალ პომიდორი",orderId = "a6e571e1-debb-43a2-8118-d016a3bd229d",price = 4.500000000),
         Ingredient("პარმეზანი", img = R.drawable.parmezani, "ტალიატელე", "ალ პომიდორი", orderId = "56fd67e3-522c-4fde-a210-43226454c0f1", price = 3.000000000),
-        Ingredient("ბლუ ჩიზი", img = R.drawable.parmezani, "ტალიატელე", "ალ პომიდორი",orderId = "ec63ff7c-9059-4faf-94a5-14d750193447",price = 12.000000000),
+        Ingredient("ბლუ ჩიზი", img = R.drawable.parmezani, "ტალიატელე", "ალ პომიდორი",orderId = "ac1ed2f9-a7b0-4a86-98ff-40ee0e2dc0cb",price = 3.500000000),
 
         Ingredient("2X სოკო", img = R.drawable.soko, "ტალიატელე", "სოკოს პასტა\nტრიუფელით", orderId = "2765ecea-873b-4381-a84a-43d5b251f56f", price = 3.000000000),
         Ingredient("ბეკონი", img = R.drawable.bekon, "ტალიატელე", "სოკოს პასტა\nტრიუფელით", orderId = "81042a6d-e619-41d0-a7ad-2ee8c9ccb80b", price = 6.000000000),
@@ -204,7 +207,7 @@ class ChooseOrderFragment : Fragment() {
         Ingredient("კაპერსი", img = R.drawable.kapersi, "სპაგეტი", "ალ პომიდორი",orderId = "d27a2064-ab60-4536-a23a-c010200dcb54",price = 1.500000000),
         Ingredient("სტრაჩატელა", img = R.drawable.strachatela, "სპაგეტი", "ალ პომიდორი",orderId = "a6e571e1-debb-43a2-8118-d016a3bd229d",price = 4.500000000),
         Ingredient("პარმეზანი", img = R.drawable.parmezani, "სპაგეტი", "ალ პომიდორი", orderId = "56fd67e3-522c-4fde-a210-43226454c0f1", price = 3.000000000),
-        Ingredient("ბლუ ჩიზი", img = R.drawable.parmezani, "სპაგეტი", "ალ პომიდორი",orderId = "ec63ff7c-9059-4faf-94a5-14d750193447",price = 12.000000000),
+        Ingredient("ბლუ ჩიზი", img = R.drawable.parmezani, "სპაგეტი", "ალ პომიდორი",orderId = "ac1ed2f9-a7b0-4a86-98ff-40ee0e2dc0cb",price = 3.500000000),
 
         Ingredient("2X სოკო", img = R.drawable.soko, "სპაგეტი", "სოკოს პასტა\nტრიუფელით", orderId = "2765ecea-873b-4381-a84a-43d5b251f56f", price = 3.000000000),
         Ingredient("ბეკონი", img = R.drawable.bekon, "სპაგეტი", "სოკოს პასტა\nტრიუფელით", orderId = "81042a6d-e619-41d0-a7ad-2ee8c9ccb80b", price = 6.000000000),
@@ -216,7 +219,14 @@ class ChooseOrderFragment : Fragment() {
         Ingredient("პარმეზანი", img = R.drawable.parmezani, "სპაგეტი", "კარბონარა", orderId = "56fd67e3-522c-4fde-a210-43226454c0f1", price = 3.000000000),
         Ingredient("ბაზილიკი", img = R.drawable.bazilika, "სპაგეტი", "კარბონარა", orderId = "20e20922-ceb3-48bd-8a7a-96d809754201", price = 2.000000000),
         Ingredient("პომიდვრის ჩირი", img = R.drawable.cheri_pomidori, "სპაგეტი", "კარბონარა",orderId = "871ddf19-03bb-4e49-8239-2632a9695cde",price = 1.500000000),
-        Ingredient("ბეკონირო", img = R.drawable.bekon, "სპაგეტი", "კარბონარა", orderId = "d9b14f81-c23c-4855-9a6f-67341c0d8145", price = 3.00000000),
+        Ingredient("პეკორინო", img = R.drawable.bekon, "სპაგეტი", "კარბონარა", orderId = "d9b14f81-c23c-4855-9a6f-67341c0d8145", price = 3.00000000),
+
+        Ingredient("კიმჩის სოუსი", img = R.drawable.kimchis_sousi, "პენე", "კარბონარა", orderId = "e0318de0-d2ca-4adb-b800-f3efe3b4b91b", price = 12.000000000),
+        Ingredient("ბეკონი", img = R.drawable.bekon, "პენე", "კარბონარა", orderId = "81042a6d-e619-41d0-a7ad-2ee8c9ccb80b", price = 6.000000000),
+        Ingredient("პარმეზანი", img = R.drawable.parmezani, "პენე", "კარბონარა", orderId = "56fd67e3-522c-4fde-a210-43226454c0f1", price = 3.000000000),
+        Ingredient("ბაზილიკი", img = R.drawable.bazilika, "პენე", "კარბონარა", orderId = "20e20922-ceb3-48bd-8a7a-96d809754201", price = 2.000000000),
+        Ingredient("პომიდვრის ჩირი", img = R.drawable.cheri_pomidori, "სპაგეტი", "კარბონარა",orderId = "871ddf19-03bb-4e49-8239-2632a9695cde",price = 1.500000000),
+        Ingredient("პეკორინო", img = R.drawable.bekon, "პენე", "კარბონარა", orderId = "d9b14f81-c23c-4855-9a6f-67341c0d8145", price = 3.00000000),
 
         Ingredient("ბაზილიკი", img = R.drawable.bazilika, "სპაგეტი", "ბლუ ჩიზი", orderId = "20e20922-ceb3-48bd-8a7a-96d809754201", price = 2.000000000),
         Ingredient("პომიდვრის ჩირი", img = R.drawable.cheri_pomidori, "სპაგეტი", "ბლუ ჩიზი",orderId = "871ddf19-03bb-4e49-8239-2632a9695cde",price = 1.500000000),
@@ -246,6 +256,13 @@ class ChooseOrderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 //        finalPasta = ArrayList()
+        hideSystemUI()
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Empty to prevent default back press action
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         costumerFinalOrder = arrayListOf()
         finalPasta = arrayListOf()
         selectedIngredients = arrayListOf()
@@ -374,17 +391,89 @@ class ChooseOrderFragment : Fragment() {
                 id = 1,
                 isTrend = false,
                 orderId = "38a28a2c-378e-4d3b-b1c2-b21ed68bec73",
-                name = "კოკა-კოლა",
+                name = "კოკა კოლა კლასიკი პლასტიკის",
+                img = R.drawable.coca_qila,
+                price = 2.500000000,
+                isFire = false
+            ),OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "d3108399-515e-410f-bc37-eab56c351054",
+                name = "კოკა კოლა კლასიკი ქილის",
                 img = R.drawable.coca_cola,
+                price = 2.500000000,
+                isFire = false
+            ),OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "e20cdd0d-42e9-459f-93e8-f2c48f00edab",
+                name = "კოკა კოლა კლასიკი შუშის",
+                img = R.drawable.cola_shusha,
                 price = 2.500000000,
                 isFire = false
             ), OrderModel(
                 id = 1,
                 isTrend = false,
+                orderId = "47f534a8-b939-4131-a99f-5695192bfa1a",
+                name = "კოკა კოლა ზერო პლატიკის",
+                img = R.drawable.cola_zero_plastic,
+                price = 2.500000000,
+                isFire = false
+            ), OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "78804061-58dd-4ba9-9d35-e466fbd9916c",
+                name = "კოკა კოლა ზერო ყავა ქილის",
+                img = R.drawable.coca_1920,
+                price = 3.000000000,
+                isFire = false
+            ), OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "404a0f79-2051-4bc9-93dd-fe1fb3a66e4a",
+                name = "ფანტა ტროპიკი პლასტიკის",
+                img = R.drawable.fanta_bottle,
+                price = 3.000000000,
+                isFire = false
+            ), OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "7e34e65e-a537-4bf7-ab5d-50740a4f9738",
+                name = "ფანტა ფორთოხლის პლასტიკის",
+                img = R.drawable.fanta_bottle,
+                price = 3.000000000,
+                isFire = false
+            ), OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "b78bdbea-9d32-443e-8edc-42a5e522fdf7",
+                name = "შვეფსი ქილის",
+                img = R.drawable.coca_cola,
+                price = 3.000000000,
+                isFire = false
+            ), OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "af1210d3-f3c5-4f6b-9416-9040331c8032",
+                name = "წყალი მთის პლასტიკის",
+                img = R.drawable.coca_cola,
+                price = 3.000000000,
+                isFire = false
+            ), OrderModel(
+                id = 1,
+                isTrend = false,
+                orderId = "2b8f3679-9c55-4081-95b9-3c0e116beaf1",
+                name = "წყალი მთის შუშის",
+                img = R.drawable.coca_cola,
+                price = 3.000000000,
+                isFire = false
+            ), OrderModel(
+                id = 1,
+                isTrend = false,
                 orderId = "9fd5fec9-1771-457b-9e67-e44b9edb86bc",
-                name = "კაპი ფორთოხლის",
+                name = "კაპი პალპი ფორთოხლის",
                 img = R.drawable.kapi_fortoxali,
-                price = 3.500000000,
+                price = 3.000000000,
                 isFire = false
             )
         )
@@ -408,8 +497,10 @@ class ChooseOrderFragment : Fragment() {
                 onItemCountChange = {item, isAdded ->
                     if (isAdded) {
                         selectedDishes.add(item)
+                        checkOrderButton()
                     } else {
                         selectedDishes.remove(item)
+                        checkOrderButton()
                     }
                     Log.d("SelectedItems", selectedDishes.toString())
                 })
@@ -423,8 +514,10 @@ class ChooseOrderFragment : Fragment() {
                 onItemCountChange = {item, isAdded ->
                     if (isAdded) {
                         selectedDishes.add(item)
+                        checkOrderButton()
                     } else {
                         selectedDishes.remove(item)
+                        checkOrderButton()
                     }
                     Log.d("SelectedItems", selectedDishes.toString())
                 })
@@ -436,8 +529,10 @@ class ChooseOrderFragment : Fragment() {
                 onItemCountChange = {item, isAdded ->
                     if (isAdded) {
                         selectedDishes.add(item)
+                        checkOrderButton()
                     } else {
                         selectedDishes.remove(item)
+                        checkOrderButton()
                     }
                 })
 
@@ -446,9 +541,12 @@ class ChooseOrderFragment : Fragment() {
         binding.saladList.layoutManager = GridLayoutManager(requireContext(), 5)
         binding.saladList.adapter = saladAdapter
         binding.drinksList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(requireContext(), 5)
         binding.drinksList.adapter = drinksAdapter
 
+        binding.backNav.setOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.back.setOnClickListener {
             back()
         }
@@ -524,6 +622,7 @@ class ChooseOrderFragment : Fragment() {
             if (selectedPastaType != null && selectedSauceType != null && selectedIngredients != null){
 
                 finalPasta?.add(FinalPasta(pasta = selectedPastaType!!, sauce = selectedSauceType!!,extras = selectedIngredients!!))
+                checkOrderButton()
                 Log.e("Final Pasta",finalPasta.toString())
                 Toast.makeText(requireContext(),"პასტა წარმატებით შექმნა!", Toast.LENGTH_SHORT).show()
             binding.apply {
@@ -562,29 +661,37 @@ class ChooseOrderFragment : Fragment() {
         }
         ingredientAdapter.updateData(ingredients)
     }
+    private fun hideSystemUI() {
+        activity?.window?.decorView?.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                )
 
+    }
     private fun finalStep() {
         binding.orderButton.setOnClickListener {
-            Log.e("badria",finalPasta.toString())
-            finalPasta?.let { it1 ->
-                if (it1.isNotEmpty()) {
-                    it1.forEach { finalPastaItem ->
-                        val modifiers = mutableListOf<Modifier>()
-
-                        modifiers.add(
-                            Modifier(
-                                productId = finalPastaItem.sauce.orderId,
-                                amount = 1,
-                                productGroupId = null,
-                                price = finalPastaItem.sauce.price ?: 0.00,
-                                positionId = null
-                            )
-                        )
-                        modifiers.addAll(finalPastaItem.extras)
-                        Log.e("badria", modifiers.toString())
-                    }
-                }
-            }
+//            finalPasta?.let { it1 ->
+//                if (it1.isNotEmpty()) {
+//                    it1.forEach { finalPastaItem ->
+//                        val modifiers = mutableListOf<Modifier>()
+//
+//                        modifiers.add(
+//                            Modifier(
+//                                productId = finalPastaItem.sauce.orderId,
+//                                amount = 1,
+//                                productGroupId = null,
+//                                price = finalPastaItem.sauce.price ?: 0.00,
+//                                positionId = null
+//                            )
+//                        )
+//                        modifiers.addAll(finalPastaItem.extras)
+//                    }
+//                }
+//            }
             AlertDialog.Builder(requireContext())
                 .setTitle("დადასტურება")
                 .setMessage("გსურს რომ დაადასტურო შეკვეთა?")
@@ -683,5 +790,9 @@ class ChooseOrderFragment : Fragment() {
                 .create()
                 .show()
         }
+    }
+    fun checkOrderButton(){
+        binding.orderButton.isEnabled = finalPasta?.isNotEmpty() == true || selectedDishes.isNotEmpty()
+        binding.check.isVisible = binding.orderButton.isEnabled
     }
 }
